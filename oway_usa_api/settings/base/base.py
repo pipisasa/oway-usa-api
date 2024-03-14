@@ -12,8 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.getenv("SECRET_KEY")
 
 DEBUG = os.getenv("DEBUG")
+ENV = os.getenv("ENV")
 
-ALLOWED_HOSTS = ["13.60.49.147"]
+ALLOWED_HOSTS = ["127.0.0.1"]
 
 ROOT_URLCONF = 'oway_usa_api.urls'
 
