@@ -1,18 +1,14 @@
 import os
 
-from dotenv import load_dotenv
+from .base import BASE_DIR, ENV
 
-from .base import BASE_DIR
-
-load_dotenv()
 
 AUTH_USER_MODEL = 'users.User'
 
 
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-if os.getenv('ENV')=="local":
+if ENV=="local":
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.sqlite3',

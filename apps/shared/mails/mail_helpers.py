@@ -2,7 +2,7 @@ from typing import List, Dict
 
 from django.core import mail
 
-from otaku_api import settings
+from oway_usa_api import settings
 
 
 def send_mail(

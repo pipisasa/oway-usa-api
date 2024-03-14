@@ -9,6 +9,7 @@ DJANGO_APPS = [
 ]
 
 MY_APPS = [
+    'apps.users.apps.UsersConfig',
 ]
 
 INSTALLED_APPS = [
