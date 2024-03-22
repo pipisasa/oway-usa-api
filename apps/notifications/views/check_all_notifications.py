@@ -11,5 +11,5 @@ class CheckAllNotificationsAPIView(APIView):
 
     def put(self, request):
         user = request.user
-        MailBox.objects.filter(user=user).update(status=False)
+        MailBox.objects.filter(user=user).update(status=True)
         return Response(status=status.HTTP_200_OK)
