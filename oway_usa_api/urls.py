@@ -7,6 +7,7 @@ from oway_usa_api.yasg import urlpatterns as doc_url
 
 api_urls = [
     path("users/", include("apps.users.urls")),
+    path("notifications/", include("apps.notifications.urls")),
 ]
 
 urlpatterns = [

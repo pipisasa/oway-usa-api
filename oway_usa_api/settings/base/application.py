@@ -10,6 +10,7 @@ DJANGO_APPS = [
 
 MY_APPS = [
     'apps.users.apps.UsersConfig',
+    'apps.notifications.apps.NotificationsConfig'
 ]
 
 INSTALLED_APPS = [
