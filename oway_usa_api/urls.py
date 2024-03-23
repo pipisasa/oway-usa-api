@@ -5,12 +5,18 @@ from django.conf.urls.static import static
 
 from oway_usa_api.yasg import urlpatterns as doc_url
 
+django_urls = [
+    path('admin/', admin.site.urls),
+]
+
 api_urls = [
+    path("django/", include(django_urls)),
     path("users/", include("apps.users.urls")),
+    path("categories/", include("apps.categories.urls")),
+    path("catalog/sites/", include("apps.catalog_sites.urls")),
 ]
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
     path('api/', include(api_urls)),
 ]
 

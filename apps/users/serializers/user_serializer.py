@@ -190,7 +190,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "email", "avatar", "front_image", "back_image")
+        fields = ("id", "unique_id", "first_name", "last_name", "email", "avatar", "front_image", "back_image")
 
     def get_front_image(self, obj):
         try:

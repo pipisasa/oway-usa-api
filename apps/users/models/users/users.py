@@ -1,4 +1,5 @@
 import random
+import string
 
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
@@ -7,7 +8,15 @@ from django.utils import timezone
 from .custom_manager import CustomUserManager
 
 
+def generate_unique_id(user_id):
+    random_letters = ''.join(random.choices(string.ascii_uppercase, k=2))
+    formatted_user_id = str(user_id).zfill(4)
+    unique_id = f'{random_letters}{formatted_user_id}'
+    return unique_id
+
+
 class User(AbstractBaseUser, PermissionsMixin):
+    unique_id = models.CharField(max_length=20, blank=True)
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
@@ -41,6 +50,9 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.save()
 
     def save(self, *args, **kwargs):
+        if not self.activation_code:
+            self.unique_id = generate_unique_id(self.id)
+        super().save(*args, **kwargs)
         if self.email:
             self.email = self.email.lower()
         super(User, self).save(*args, **kwargs)
