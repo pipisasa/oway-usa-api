@@ -10,6 +10,7 @@ DJANGO_APPS = [
 
 MY_APPS = [
     'apps.users.apps.UsersConfig',
+    'apps.categories.apps.CategoriesConfig',
 ]
 
 INSTALLED_APPS = [
