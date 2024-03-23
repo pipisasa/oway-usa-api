@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.catalog_sites.models import CatalogSite
+
+
+@admin.register(CatalogSite)
+class AdminCatalogSite(admin.ModelAdmin):
+    list_display = ["id", "name"]
