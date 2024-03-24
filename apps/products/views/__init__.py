@@ -1,0 +1,3 @@
+from .add_product import ProductsCreateAPIView
+from .products_list import ProductsListAPIView
+from .products_detail import ProductsDetailAPIView
