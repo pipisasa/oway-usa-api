@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG")
 ENV = os.getenv("ENV")
 
-ALLOWED_HOSTS = ["127.0.0.1"]
+ALLOWED_HOSTS = ["127.0.0.1", "3.140.250.121"]
 
 ROOT_URLCONF = 'oway_usa_api.urls'
 
