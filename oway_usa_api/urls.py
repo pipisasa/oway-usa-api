@@ -16,6 +16,7 @@ api_urls = [
     path("categories/", include("apps.categories.urls")),
     path("catalog/sites/", include("apps.catalog_sites.urls")),
     path("products/", include("apps.products.urls")),
+    path("billing/", include("apps.billing.urls")),
 ]
 
 urlpatterns = [

@@ -14,12 +14,10 @@ class SignUpSerializer(serializers.ModelSerializer):
         write_only=True,
         required=True,
     )
-    front_image = serializers.ImageField(required=True)
-    back_image = serializers.ImageField(required=True)
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'password', 'password2', 'front_image', 'back_image']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'password', 'password2']
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, attrs: dict):
@@ -41,18 +39,6 @@ class SignUpSerializer(serializers.ModelSerializer):
         if User.objects.filter(email=attrs['email']).exists():
             raise ValidationError({"email": "This email is already in use."})
         return attrs
-
-    def create(self, validated_data):
-        front_image_data = validated_data.pop('front_image')
-        back_image_data = validated_data.pop('back_image')
-        del validated_data["password2"]
-
-        with transaction.atomic():
-            user = User.objects.create(**validated_data)
-            PassportFront.objects.create(user=user, front_image=front_image_data)
-            PassportBack.objects.create(user=user, back_image=back_image_data)
-
-        return user
 
 
 class ActivationAccountSerializer(serializers.Serializer):
@@ -125,7 +111,7 @@ class SignInSerializer(serializers.Serializer):
         Raises:
             Http404: If no user with the given email is found.
         """
-        return get_object_or_404(User, email__iexact=email)
+        return get_object_or_404(User, email=email)
 
     def _validate_user_active(self, user: User):
         """
@@ -149,6 +135,7 @@ class SignInSerializer(serializers.Serializer):
         Raises:
             serializers.ValidationError: If the password is incorrect.
         """
+        print(password, user.password)
         if user.password!=password:
             raise serializers.ValidationError('Incorrect email or password')
 
