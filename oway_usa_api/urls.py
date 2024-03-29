@@ -12,6 +12,7 @@ django_urls = [
 api_urls = [
     path("django/", include(django_urls)),
     path("users/", include("apps.users.urls")),
+    path("notifications/", include("apps.notifications.urls")),
     path("categories/", include("apps.categories.urls")),
     path("catalog/sites/", include("apps.catalog_sites.urls")),
 ]
