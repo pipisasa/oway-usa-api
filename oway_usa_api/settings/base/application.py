@@ -13,6 +13,7 @@ MY_APPS = [
     'apps.notifications.apps.NotificationsConfig',
     'apps.categories.apps.CategoriesConfig',
     'apps.catalog_sites.apps.CatalogSitesConfig',
+    'apps.products.apps.ProductsConfig',
     'apps.billing.apps.BillingConfig',
 ]
 
