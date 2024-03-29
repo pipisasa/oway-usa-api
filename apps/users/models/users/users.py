@@ -21,7 +21,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=255)
     phone_number = models.CharField(max_length=255)
     email = models.EmailField('email address', unique=True)
-    password = models.CharField(max_length=255, null=False, blank=False)
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     activation_code = models.CharField(max_length=20, blank=True)
 
@@ -53,6 +52,3 @@ class User(AbstractBaseUser, PermissionsMixin):
         if not self.activation_code:
             self.unique_id = generate_unique_id(self.id)
         super().save(*args, **kwargs)
-        if self.email:
-            self.email = self.email.lower()
-        super(User, self).save(*args, **kwargs)

@@ -40,17 +40,6 @@ class SignUpSerializer(serializers.ModelSerializer):
             raise ValidationError({"email": "This email is already in use."})
         return attrs
 
-    def create(self, validated_data):
-        password2 = validated_data.pop('password2', None)
-        first_name = validated_data.pop('first_name', '')
-        last_name = validated_data.pop('last_name', '')
-        user = User.objects.create_user(**validated_data)
-        user.set_password(validated_data.get('password'))
-        user.last_name = last_name
-        user.first_name = first_name
-        user.save()
-        return user
-
 
 class ActivationAccountSerializer(serializers.Serializer):
     email = serializers.EmailField()
@@ -122,7 +111,7 @@ class SignInSerializer(serializers.Serializer):
         Raises:
             Http404: If no user with the given email is found.
         """
-        return get_object_or_404(User, email__iexact=email)
+        return get_object_or_404(User, email=email)
 
     def _validate_user_active(self, user: User):
         """
@@ -146,6 +135,7 @@ class SignInSerializer(serializers.Serializer):
         Raises:
             serializers.ValidationError: If the password is incorrect.
         """
+        print(password, user.password)
         if user.password!=password:
             raise serializers.ValidationError('Incorrect email or password')
 
