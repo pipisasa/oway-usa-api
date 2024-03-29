@@ -14,12 +14,10 @@ class SignUpSerializer(serializers.ModelSerializer):
         write_only=True,
         required=True,
     )
-    front_image = serializers.ImageField(required=True)
-    back_image = serializers.ImageField(required=True)
 
     class Meta:
         model = User
-        fields = ['id', 'first_name', 'last_name', 'email', 'phone_number', 'password', 'password2', 'front_image', 'back_image']
+        fields = ['first_name', 'last_name', 'email', 'phone_number', 'password', 'password2']
         extra_kwargs = {'password': {'write_only': True}}
 
     def validate(self, attrs: dict):
@@ -43,15 +41,13 @@ class SignUpSerializer(serializers.ModelSerializer):
         return attrs
 
     def create(self, validated_data):
-        front_image_data = validated_data.pop('front_image')
-        back_image_data = validated_data.pop('back_image')
-        del validated_data["password2"]
-
-        with transaction.atomic():
-            user = User.objects.create(**validated_data)
-            PassportFront.objects.create(user=user, front_image=front_image_data)
-            PassportBack.objects.create(user=user, back_image=back_image_data)
-
+        password2 = validated_data.pop('password2', None)
+        first_name = validated_data.pop('first_name', '')
+        last_name = validated_data.pop('last_name', '')
+        user = User.objects.create_user(**validated_data)
+        user.last_name = last_name
+        user.first_name = first_name
+        user.save()
         return user
 
 
