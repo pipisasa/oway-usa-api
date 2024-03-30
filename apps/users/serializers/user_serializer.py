@@ -135,7 +135,6 @@ class SignInSerializer(serializers.Serializer):
         Raises:
             serializers.ValidationError: If the password is incorrect.
         """
-        print(password, user.password)
         if user.password!=password:
             raise serializers.ValidationError('Incorrect email or password')
 
