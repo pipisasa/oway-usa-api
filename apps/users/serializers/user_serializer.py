@@ -167,6 +167,7 @@ class SignInSerializer(serializers.Serializer):
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
+            'is_admin': user.is_admin
         }
 
 
