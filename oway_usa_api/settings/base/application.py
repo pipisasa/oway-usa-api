@@ -15,6 +15,7 @@ MY_APPS = [
     'apps.catalog_sites.apps.CatalogSitesConfig',
     'apps.products.apps.ProductsConfig',
     'apps.billing.apps.BillingConfig',
+    'apps.countries.apps.CountriesConfig'
 ]
 
 INSTALLED_APPS = [

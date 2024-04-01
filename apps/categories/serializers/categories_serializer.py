@@ -23,6 +23,13 @@ class ListCategorySerializer(BaseCategorySerializer):
         fields = ["id"] + base_field
 
 
+class DetailCategorySerializer(BaseCategorySerializer):
+
+    class Meta:
+        model = Category
+        fields = ["id"] + base_field
+
+
 class UpdateCategorySerializer(BaseCategorySerializer):
 
     class Meta:
