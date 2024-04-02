@@ -3,6 +3,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from apps.shared.utils.mailing.send_activation_code import send_activation_code
+from apps.users.models import User
 from apps.users.serializers import SignUpSerializer
 
 
@@ -10,13 +11,17 @@ class AddUserForAdminAPIView(APIView):
     serializer_class = SignUpSerializer
 
     def post(self, request, *args, **kwargs):
-        mutable_data = request.data.copy()
-        mutable_data['is_active'] = True
-
-        serializer = self.serializer_class(data=mutable_data)
+        data = request.data
+        serializer = self.serializer_class(data=data)
         if serializer.is_valid():
-            user = serializer.save()
-            user.create_activation_code()
-            send_activation_code(user=user)
+            user = User.objects.create(
+                phone_number=data.get('phone_number'),
+                email=data.get('email'),
+                first_name=data.get('first_name', ''),
+                last_name=data.get('last_name', ''),
+                password=data.get('password'),
+                is_active=True
+            )
+            user.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
