@@ -1,0 +1,9 @@
+from django.contrib import admin
+from django.urls import path, include
+from apps.warehouses import views
+
+urlpatterns = [
+    path('create/', views.CreateWarehouseAPI.as_view(), name="create"),
+    path('my/', views.MyWarehouseListAPI.as_view(), name="my"),
+    path('status/list/', views.ListStatusAPI.as_view(), name="status-list"),
+]

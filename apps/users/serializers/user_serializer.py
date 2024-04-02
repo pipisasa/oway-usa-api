@@ -135,7 +135,6 @@ class SignInSerializer(serializers.Serializer):
         Raises:
             serializers.ValidationError: If the password is incorrect.
         """
-        print(password, user.password)
         if user.password!=password:
             raise serializers.ValidationError('Incorrect email or password')
 
@@ -168,6 +167,7 @@ class SignInSerializer(serializers.Serializer):
         return {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
+            'is_admin': user.is_admin
         }
 
 
@@ -177,7 +177,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "unique_id", "first_name", "last_name", "email", "avatar", "front_image", "back_image")
+        fields = ("id", "unique_id", "first_name", "last_name", "email", "avatar", "phone_number", "front_image", "back_image")
 
     def get_front_image(self, obj):
         try:
@@ -222,7 +222,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "email", "avatar", "front_image", "back_image")
+        fields = ("id", "first_name", "last_name", "email", "avatar", "phone_number", "front_image", "back_image")
 
     def get_front_image(self, obj):
         try:

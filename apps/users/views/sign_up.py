@@ -21,6 +21,7 @@ class SignUpAPIView(APIView):
                 last_name=data.get('last_name', ''),
                 password=data.get('password')
             )
+            user.save()
             user.create_activation_code()
             send_activation_code(user=user)
             return Response(status=status.HTTP_201_CREATED)

@@ -1,1 +1,4 @@
-from .catalog_site_serializer import CatalogSiteSerializer
+from .catalog_site_serializer import (
+    CatalogSiteSerializer,
+    CatalogSiteListSerializer,
+)

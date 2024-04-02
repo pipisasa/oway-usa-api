@@ -5,7 +5,7 @@ from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
 from apps.catalog_sites.models import CatalogSite
-from apps.catalog_sites.serializers import CatalogSiteSerializer
+from apps.catalog_sites.serializers import CatalogSiteListSerializer
 from apps.catalog_sites.views.filter_helpers import simple_filters
 from apps.shared.views.list_view import ListAPIView
 
@@ -17,7 +17,7 @@ class ListCatalogSitesAPI(ListAPIView):
         return CatalogSite.objects.all()
 
     def get_serializer_class(self):
-        return CatalogSiteSerializer
+        return CatalogSiteListSerializer
 
     def _filter_queryset(self, request, queryset):
         query_params = request.query_params.copy()
@@ -35,7 +35,7 @@ class ListCatalogSitesAPI(ListAPIView):
 
     @swagger_auto_schema(
         responses={200: openapi.Response(
-            'List of category sites', CatalogSiteSerializer(many=True))},
+            'List of category sites', CatalogSiteListSerializer(many=True))},
     )
     def get(self, request):
         queryset = self.get_queryset()
