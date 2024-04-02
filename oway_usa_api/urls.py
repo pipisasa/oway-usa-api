@@ -17,6 +17,8 @@ api_urls = [
     path("catalog/sites/", include("apps.catalog_sites.urls")),
     path("products/", include("apps.products.urls")),
     path("billing/", include("apps.billing.urls")),
+    path("add_user_for_admin/", include("apps.add_user_in_ap.urls")),
+    path("purchase/", include("apps.purchase.urls")),
 ]
 
 urlpatterns = [
