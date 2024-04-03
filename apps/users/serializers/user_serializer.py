@@ -259,3 +259,11 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
                 PassportBack.objects.create(user=instance, back_image=back_image_data)
 
         return instance
+
+
+class ChangePasswordSerializer(serializers.Serializer):
+    old_password = serializers.CharField(required=True)
+    new_password = serializers.CharField(required=True)
+    confirm_new_password = serializers.CharField(required=True)
+
+

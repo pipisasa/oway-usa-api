@@ -4,13 +4,13 @@ from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
 
-from apps.add_user_in_ap.serialiers import UserSerializer
-from apps.users.models import User
-from apps.users.serializers import SignUpSerializer
+from apps.add_user_in_ap.serialiers import AddUserSerializer
+from apps.users.models import User, PassportFront, PassportBack
+from apps.users.serializers import ProfileSerializer
 
 
 class AddUserForAdminAPIView(APIView):
-    serializer_class = SignUpSerializer
+    serializer_class = AddUserSerializer
     permission_classes = [IsAdminUser]
 
     def post(self, request, *args, **kwargs):
@@ -26,6 +26,16 @@ class AddUserForAdminAPIView(APIView):
                 is_active=True
             )
             user.save()
+            front_image = PassportFront.objects.create(
+                user=user,
+                front_image=data.get('front_image')
+            )
+            front_image.save()
+            back_image = PassportBack.objects.create(
+                user=user,
+                back_image=data.get('back_image')
+            )
+            back_image.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
@@ -38,6 +48,6 @@ class CustomPagination(PageNumberPagination):
 
 class UserListAPIView(generics.ListAPIView):
     queryset = User.objects.all()
-    serializer_class = UserSerializer
+    serializer_class = ProfileSerializer
     pagination_class = CustomPagination
     permission_classes = [IsAdminUser]
