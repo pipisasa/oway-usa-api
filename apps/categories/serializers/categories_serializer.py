@@ -4,8 +4,6 @@ from apps.categories.models import Category
 
 base_field = [
     'name',
-    'codename',
-    'icon'
 ]
 
 
