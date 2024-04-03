@@ -6,6 +6,6 @@ from apps.warehouses.serializers import WarehouseCreateSerializer
 
 
 class CreateWarehouseAPI(CreateAPIView):
-    permission_classes = [AllowAny]
+    permission_classes = [IsAdminUser]
     serializer_class = WarehouseCreateSerializer
     queryset = Warehouse.objects.all()
