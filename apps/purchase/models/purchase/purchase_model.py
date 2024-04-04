@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 
@@ -16,3 +18,4 @@ class Purchase(models.Model):
     payment_confirmation = models.ImageField(blank=True, null=True, upload_to='purchase_payment_confirmation')
     price = models.IntegerField(blank=True, null=True)
 
+    created_at = models.DateTimeField(default=datetime.now)
