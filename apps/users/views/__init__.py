@@ -3,3 +3,4 @@ from .sign_in import SignInAPIView
 from .activation_account import ActivationAccountAPIView
 from .profile import ProfileAPIView
 from .google import GoogleLoginAPI
+from .change_password import ChangePasswordView

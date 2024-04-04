@@ -8,4 +8,5 @@ urlpatterns = [
     path('auth/google/', views.GoogleLoginAPI.as_view(), name="login-google"),
     path('profile/', views.ProfileAPIView.as_view(), name="profile"),
     path('activation_account/', views.ActivationAccountAPIView.as_view(), name="activation_account"),
+    path('change_password/', views.ChangePasswordView.as_view(), name="change_password"),
 ]
