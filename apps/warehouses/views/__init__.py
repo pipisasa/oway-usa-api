@@ -1,6 +1,7 @@
 from .warehouse import (
     CreateWarehouseAPI,
-    MyWarehouseListAPI
+    MyWarehouseListAPI,
+    WarehouseListAPI,
 )
 from .status import (
     ListStatusAPI

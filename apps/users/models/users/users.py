@@ -49,6 +49,6 @@ class User(AbstractBaseUser, PermissionsMixin):
         self.save()
 
     def save(self, *args, **kwargs):
-        if not self.activation_code:
+        if self._state.adding and not self.unique_id:
             self.unique_id = generate_unique_id(self.id)
         super().save(*args, **kwargs)
