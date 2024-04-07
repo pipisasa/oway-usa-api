@@ -19,6 +19,7 @@ MY_APPS = [
     'apps.purchase.apps.PurchaseConfig',
     'apps.countries.apps.CountriesConfig',
     'apps.warehouses.apps.WarehousesConfig',
+    'apps.statics.apps.StaticsConfig',
 ]
 
 INSTALLED_APPS = [

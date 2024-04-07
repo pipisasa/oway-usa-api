@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from django.db import models
 
 from apps.countries.models import Country
@@ -15,6 +17,13 @@ class Warehouse(models.Model):
     price = models.FloatField(default=0)
     unique_id_user = models.CharField(max_length=255)
     image = models.ImageField(upload_to='warehouse/', null=True, blank=True)
+    url = models.URLField(blank=True, null=True)
+    articul = models.CharField(max_length=255, default="default", blank=False, null=False)
+    price = models.IntegerField(blank=True, null=True)
+    count = models.IntegerField(default=0,blank=False, null=False)
+    color = models.CharField(default="default-color", max_length=255, blank=False, null=False)
+
+    created_at = models.DateTimeField(default=datetime.now)
 
     def __str__(self):
         return self.name
