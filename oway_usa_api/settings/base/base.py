@@ -14,6 +14,8 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG")
 ENV = os.getenv("ENV")
 
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 ALLOWED_HOSTS = ["localhost", "18.222.184.72", "127.0.0.1", "api-owayusa.com"]
 
 ROOT_URLCONF = 'oway_usa_api.urls'
