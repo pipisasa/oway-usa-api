@@ -1,5 +1,7 @@
 from .users import StaticsUserAPI
 
 from .warehouse import (
-    StaticsWarehouseWeightAPI
+    StaticsWarehouseWeightAPI,
+    StaticsWarehouseDeliveredAPI,
+    StaticsWarehousePaidAPI
 )

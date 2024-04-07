@@ -1,1 +1,3 @@
 from .weight import StaticsWarehouseWeightAPI
+from .delivered import StaticsWarehouseDeliveredAPI
+from .paid import StaticsWarehousePaidAPI
