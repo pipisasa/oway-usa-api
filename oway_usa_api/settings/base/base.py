@@ -14,7 +14,7 @@ SECRET_KEY = os.getenv("SECRET_KEY")
 DEBUG = os.getenv("DEBUG")
 ENV = os.getenv("ENV")
 
-ALLOWED_HOSTS = ["localhost", "18.222.184.72", "127.0.0.1"]
+ALLOWED_HOSTS = ["localhost", "18.222.184.72", "127.0.0.1", "api-owayusa.com"]
 
 ROOT_URLCONF = 'oway_usa_api.urls'
 
@@ -24,3 +24,6 @@ WSGI_APPLICATION = 'oway_usa_api.wsgi.application'
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+TIME_ZONE = 'Asia/Bishkek'
+USE_TZ = True
