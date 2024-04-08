@@ -6,7 +6,7 @@ from rest_framework.response import Response
 
 from apps.catalog_sites.models import CatalogSite
 from apps.catalog_sites.serializers import CatalogSiteListSerializer
-from apps.catalog_sites.views.filter_helpers import simple_filters
+from apps.catalog_sites.views.filter_helpers import in_filters
 from apps.shared.views.list_view import ListAPIView
 
 
@@ -24,8 +24,8 @@ class ListCatalogSitesAPI(ListAPIView):
 
         q_objects = self.build_filters(
             query_params=query_params,
-            simple_filters=simple_filters,
-            in_filters=[],
+            simple_filters=[],
+            in_filters=in_filters,
             boolean_filters=[],
             range_filters=[],
             text_search_filters=[],
