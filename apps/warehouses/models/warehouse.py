@@ -4,6 +4,7 @@ from django.db import models
 
 from apps.countries.models import Country
 from .status import Status
+from .status_payment import StatusPayment
 
 
 class Warehouse(models.Model):
@@ -14,6 +15,7 @@ class Warehouse(models.Model):
     track_number = models.CharField(max_length=50)
     comments = models.TextField()
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True)
+    status_payment = models.ForeignKey(StatusPayment, on_delete=models.SET_NULL, null=True)
     price = models.FloatField(default=0)
     unique_id_user = models.CharField(max_length=255)
     image = models.ImageField(upload_to='warehouse/', null=True, blank=True)
