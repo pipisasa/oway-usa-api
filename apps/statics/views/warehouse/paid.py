@@ -25,7 +25,7 @@ class StaticsWarehousePaidAPI(APIView):
             data_dict[day] = entry['total']
 
     def get(self, request):
-        paid_status = Status.objects.get(name="Оплачено")
+        paid_status = Status.objects.get(name="Доставлено")
         now = timezone.now()
         start_of_today = now.replace(hour=0, minute=0, second=0, microsecond=0)
         start_of_week = start_of_today - timedelta(days=start_of_today.weekday())
