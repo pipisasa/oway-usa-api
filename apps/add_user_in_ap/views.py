@@ -1,4 +1,3 @@
-from rest_framework.pagination import PageNumberPagination
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 from rest_framework import status, generics
@@ -7,6 +6,7 @@ from rest_framework.views import APIView
 from apps.add_user_in_ap.serialiers import AddUserSerializer
 from apps.users.models import User, PassportFront, PassportBack
 from apps.users.serializers import ProfileSerializer
+from apps.shared.views.list_view import ListAPIView
 
 
 class AddUserForAdminAPIView(APIView):
@@ -40,14 +40,21 @@ class AddUserForAdminAPIView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class CustomPagination(PageNumberPagination):
-    page_size = 7
-    page_size_query_param = 'page_size'
-    max_page_size = 100
-
-
-class UserListAPIView(generics.ListAPIView):
-    queryset = User.objects.all()
-    serializer_class = ProfileSerializer
-    pagination_class = CustomPagination
+class UserListAPIView(ListAPIView):
     permission_classes = [IsAdminUser]
+
+    def get_serializer_class(self):
+        return ProfileSerializer
+
+    def get_queryset(self):
+        return User.objects.all()
+
+    def get(self, request):
+        queryset = self.get_queryset()
+        base_response, _ = self.get_base_response(queryset, request)
+
+        response_data = {
+            **base_response,
+        }
+
+        return Response(response_data, status=status.HTTP_200_OK)
