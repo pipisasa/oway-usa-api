@@ -8,15 +8,35 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from apps.warehouses.models import Status, Warehouse
+from ..filter_helper import in_filters
+from apps.shared.views import FilterHelper
 
 
-class StaticsWarehousePaidAPI(APIView):
+class StaticsWarehousePaidAPI(APIView, FilterHelper):
     permission_classes = [AllowAny]
 
-    @staticmethod
-    def aggregate_by_days(start_date, end_date, data_dict, paid_status):
-        entries = Warehouse.objects.filter(
-            status=paid_status,
+    def _filter_queryset(self, request, queryset):
+        query_params = request.query_params.copy()
+
+        q_objects = self.build_filters(
+            query_params=query_params,
+            simple_filters=[],
+            in_filters=in_filters,
+            boolean_filters=[],
+            range_filters=[],
+            text_search_filters=[],
+        )
+        queryset = queryset.filter(q_objects)
+        return queryset
+
+    def get_queryset_filter(self):
+        delivered_status = Status.objects.get(name="Доставлено")
+        queryset = Warehouse.objects.filter(status=delivered_status)
+        filtered_queryset = self._filter_queryset(self.request, queryset)
+        return filtered_queryset
+
+    def aggregate_by_days(self, start_date, end_date, data_dict):
+        entries = self.get_queryset_filter().filter(
             created_at__range=(start_date, end_date)
         ).annotate(day=TruncDay('created_at')).values('day').annotate(total=Sum('price')).order_by('day')
 
@@ -25,7 +45,6 @@ class StaticsWarehousePaidAPI(APIView):
             data_dict[day] = entry['total']
 
     def get(self, request):
-        paid_status = Status.objects.get(name="Доставлено")
         now = timezone.now()
         start_of_today = now.replace(hour=0, minute=0, second=0, microsecond=0)
         start_of_week = start_of_today - timedelta(days=start_of_today.weekday())
@@ -45,16 +64,16 @@ class StaticsWarehousePaidAPI(APIView):
         month_data = {(start_of_month + timedelta(days=i)).strftime('%Y-%m-%d'): 0 for i in
                       range((end_of_month - start_of_month).days + 1)}
 
-        today_hours = Warehouse.objects.filter(
-            status=paid_status, created_at__gte=start_of_today
+        today_hours = self.get_queryset_filter().filter(
+            created_at__gte=start_of_today
         ).annotate(hour=TruncHour('created_at')).values('hour').annotate(total=Sum('price')).order_by('hour')
 
         for entry in today_hours:
             hour = entry['hour'].hour
             today_data[str(hour)] = entry['total']
 
-        self.aggregate_by_days(start_of_week, now, week_data, paid_status)
-        self.aggregate_by_days(start_of_month, now, month_data, paid_status)
+        self.aggregate_by_days(start_of_week, now, week_data)
+        self.aggregate_by_days(start_of_month, now, month_data)
 
         result = {
             'today': today_data,

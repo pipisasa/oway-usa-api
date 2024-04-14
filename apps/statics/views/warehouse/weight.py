@@ -7,18 +7,39 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from apps.warehouses.models import Status, Warehouse
+from ..filter_helper import in_filters
+from apps.shared.views import FilterHelper
 
 
-class StaticsWarehouseWeightAPI(APIView):
+class StaticsWarehouseWeightAPI(APIView, FilterHelper):
     permission_classes = [AllowAny]
 
-    def aggregate_weight_by_intervals(self, start, end, delivered_status, interval='hourly'):
+    def _filter_queryset(self, request, queryset):
+        query_params = request.query_params.copy()
+
+        q_objects = self.build_filters(
+            query_params=query_params,
+            simple_filters=[],
+            in_filters=in_filters,
+            boolean_filters=[],
+            range_filters=[],
+            text_search_filters=[],
+        )
+        queryset = queryset.filter(q_objects)
+        return queryset
+
+    def get_queryset_filter(self):
+        delivered_status = Status.objects.get(name="Доставлено")
+        queryset = Warehouse.objects.filter(status=delivered_status)
+        filtered_queryset = self._filter_queryset(self.request, queryset)
+        return filtered_queryset
+
+    def aggregate_weight_by_intervals(self, start, end, interval='hourly'):
         aggregates = []
         current = start
         while current < end:
             next_interval = current + (timedelta(hours=1) if interval == 'hourly' else timedelta(days=1))
-            weight = Warehouse.objects.filter(
-                status=delivered_status,
+            weight = self.get_queryset_filter().filter(
                 created_at__range=(current, next_interval)
             ).aggregate(total_weight=Sum('weight'))['total_weight'] or 0
 
@@ -31,7 +52,6 @@ class StaticsWarehouseWeightAPI(APIView):
         return aggregates
 
     def get(self, request):
-        delivered_status = Status.objects.get(name="Доставлено")
 
         now = timezone.now()
 
@@ -44,8 +64,8 @@ class StaticsWarehouseWeightAPI(APIView):
         for hour in range(24):
             hour_start = start_of_today + timedelta(hours=hour)
             hour_end = hour_start + timedelta(hours=1)
-            weight = Warehouse.objects.filter(
-                status=delivered_status, created_at__range=(hour_start, hour_end)
+            weight = self.get_queryset_filter().filter(
+                created_at__range=(hour_start, hour_end)
             ).aggregate(Sum('weight'))['weight__sum'] or 0
             today[str(hour)] = weight
 
@@ -53,8 +73,8 @@ class StaticsWarehouseWeightAPI(APIView):
             for day in eval(period).keys():
                 day_start = timezone.datetime.strptime(day, '%Y-%m-%d')
                 day_end = day_start + timedelta(days=1)
-                weight = Warehouse.objects.filter(
-                    status=delivered_status, created_at__range=(day_start, day_end)
+                weight = self.get_queryset_filter().filter(
+                    created_at__range=(day_start, day_end)
                 ).aggregate(Sum('weight'))['weight__sum'] or 0
                 eval(period)[day] = weight
 
