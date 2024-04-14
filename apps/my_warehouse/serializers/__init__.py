@@ -1,0 +1,1 @@
+from .my_warehouse_add_update_serializer import MyWarehouseCreateUpdateSerializer

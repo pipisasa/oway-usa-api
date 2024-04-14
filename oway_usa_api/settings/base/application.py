@@ -20,6 +20,7 @@ MY_APPS = [
     'apps.countries.apps.CountriesConfig',
     'apps.warehouses.apps.WarehousesConfig',
     'apps.statics.apps.StaticsConfig',
+    'apps.my_warehouse.apps.MyWarehouseConfig',
 ]
 
 INSTALLED_APPS = [
