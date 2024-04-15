@@ -58,3 +58,25 @@ class UserListAPIView(ListAPIView):
         }
 
         return Response(response_data, status=status.HTTP_200_OK)
+
+
+class UserSearchAPIView(ListAPIView):
+    permission_classes = [IsAdminUser]
+
+    def get_serializer_class(self):
+        return ProfileSerializer
+
+    def get_queryset(self):
+        unique_id = self.request.query_params.get('unique_id')
+        print(unique_id)
+        return User.objects.filter(unique_id=unique_id)
+
+    def get(self, request):
+        queryset = self.get_queryset()
+        base_response, _ = self.get_base_response(queryset, request)
+
+        response_data = {
+            **base_response,
+        }
+
+        return Response(response_data, status=status.HTTP_200_OK)
