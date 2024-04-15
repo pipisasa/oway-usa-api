@@ -1,8 +1,9 @@
-from rest_framework.permissions import IsAdminUser
+from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework import status, generics
 from rest_framework.views import APIView
 
+from apps.add_user_in_ap.filter_helpers import text_search_filters
 from apps.add_user_in_ap.serialiers import AddUserSerializer
 from apps.users.models import User, PassportFront, PassportBack
 from apps.users.serializers import ProfileSerializer
@@ -43,6 +44,20 @@ class AddUserForAdminAPIView(APIView):
 class UserListAPIView(ListAPIView):
     permission_classes = [IsAdminUser]
 
+    def _filter_queryset(self, request, queryset):
+        query_params = request.query_params.copy()
+        q_objects = self.build_filters(
+            query_params=query_params,
+            simple_filters=[],
+            in_filters=[],
+            boolean_filters=[],
+            range_filters=[],
+            text_search_filters=text_search_filters,
+        )
+        queryset = queryset.filter(q_objects)
+        return queryset
+
+
     def get_serializer_class(self):
         return ProfileSerializer
 
@@ -51,7 +66,8 @@ class UserListAPIView(ListAPIView):
 
     def get(self, request):
         queryset = self.get_queryset()
-        base_response, _ = self.get_base_response(queryset, request)
+        filtered_queryset = self._filter_queryset(request, queryset)
+        base_response, _ = self.get_base_response(filtered_queryset, request)
 
         response_data = {
             **base_response,
@@ -66,14 +82,27 @@ class UserSearchAPIView(ListAPIView):
     def get_serializer_class(self):
         return ProfileSerializer
 
+    def _filter_queryset(self, request, queryset):
+        query_params = request.query_params.copy()
+
+        q_objects = self.build_filters(
+            query_params=query_params,
+            simple_filters=[],
+            in_filters=[],
+            boolean_filters=[],
+            range_filters=[],
+            text_search_filters=text_search_filters,
+        )
+        queryset = queryset.filter(q_objects)
+        return queryset
+
     def get_queryset(self):
-        unique_id = self.request.query_params.get('unique_id')
-        print(unique_id)
-        return User.objects.filter(unique_id=unique_id)
+        return User.objects.all()
 
     def get(self, request):
         queryset = self.get_queryset()
-        base_response, _ = self.get_base_response(queryset, request)
+        filtered_queryset = self._filter_queryset(request, queryset)
+        base_response, _ = self.get_base_response(filtered_queryset, request)
 
         response_data = {
             **base_response,
