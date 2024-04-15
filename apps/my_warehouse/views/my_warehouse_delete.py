@@ -5,4 +5,4 @@ from apps.my_warehouse.models import MyWarehouse
 
 class MyWarehouseDelete(generics.DestroyAPIView):
     queryset = MyWarehouse.objects.all()
-    permission_classes = [permissions.IsAdminUser]
+    permission_classes = [permissions.IsAuthenticated]
