@@ -4,3 +4,7 @@ from .activation_account import ActivationAccountAPIView
 from .profile import ProfileAPIView
 from .google import GoogleLoginAPI
 from .change_password import ChangePasswordView
+from .forgot_password import (
+    ForgotPasswordCompleteView,
+    ForgotPasswordSendActivationCodeView
+)
