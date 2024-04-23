@@ -20,6 +20,7 @@ class MyWarehouseAddView(APIView):
             warehouse=data['warehouse'],
             tracking_number=data['tracking_number'],
             courier_service=data['courier_service'],
+            comments=data['comments'],
         )
         my_warehouse.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

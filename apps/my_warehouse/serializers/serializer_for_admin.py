@@ -9,4 +9,4 @@ class MyWarehouseListForAdminSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MyWarehouse
-        fields = ["id", "warehouse", "tracking_number", "courier_service", "user"]
+        fields = ["id", "warehouse", "tracking_number", "courier_service", "user", "comments"]
