@@ -11,7 +11,7 @@ from .custom_manager import CustomUserManager
 def generate_unique_id(user_id):
     random_letters = ''.join(random.choices(string.ascii_uppercase, k=2))
     formatted_user_id = str(user_id).zfill(4)
-    unique_id = f'KY{formatted_user_id}'
+    unique_id = f'OW{formatted_user_id}'
     return unique_id
 
 
