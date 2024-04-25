@@ -21,6 +21,7 @@ MY_APPS = [
     'apps.warehouses.apps.WarehousesConfig',
     'apps.statics.apps.StaticsConfig',
     'apps.my_warehouse.apps.MyWarehouseConfig',
+    'apps.logos.apps.LogosConfig',
 ]
 
 INSTALLED_APPS = [
