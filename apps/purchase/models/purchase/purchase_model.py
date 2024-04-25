@@ -2,8 +2,11 @@ from datetime import datetime
 
 from django.db import models
 
+from oway_usa_api import settings
+
 
 class Purchase(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     full_name = models.CharField(max_length=255, blank=False, null=False)
     url = models.URLField(blank=False, null=False)
     name_of_purchase = models.CharField(max_length=255, blank=False, null=False)
