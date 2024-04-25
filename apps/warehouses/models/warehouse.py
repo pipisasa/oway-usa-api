@@ -22,8 +22,11 @@ class Warehouse(models.Model):
     url = models.URLField(blank=True, null=True)
     articul = models.CharField(max_length=255, default="default", blank=False, null=False)
     price = models.IntegerField(blank=True, null=True)
-    count = models.IntegerField(default=0,blank=False, null=False)
-    color = models.CharField(default="default-color", max_length=255, blank=False, null=False)
+
+    date_sent = models.DateTimeField(null=True, blank=True)
+    date_arrived = models.DateTimeField(null=True, blank=True)
+
+    is_parcels = models.BooleanField(default=False)
 
     created_at = models.DateTimeField(default=datetime.now)
 
