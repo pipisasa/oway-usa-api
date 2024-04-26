@@ -23,8 +23,8 @@ class Warehouse(models.Model):
     articul = models.CharField(max_length=255, default="default", blank=False, null=False)
     price = models.IntegerField(blank=True, null=True)
 
-    date_sent = models.DateTimeField(null=True, blank=True)
-    date_arrived = models.DateTimeField(null=True, blank=True)
+    date_sent = models.CharField(max_length=50, null=True, blank=True)
+    date_arrived = models.CharField(max_length=50, null=True, blank=True)
 
     is_parcels = models.BooleanField(default=False)
 
