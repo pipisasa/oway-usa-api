@@ -9,7 +9,7 @@ from apps.purchase import serializers
 
 
 class PurchaseList(APIView):
-    # permission_classes = [IsAdminUser]
+    permission_classes = [IsAdminUser]
 
     def get(self, request):
         paginator = PageNumberPagination()

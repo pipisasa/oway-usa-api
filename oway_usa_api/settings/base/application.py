@@ -22,6 +22,7 @@ MY_APPS = [
     'apps.statics.apps.StaticsConfig',
     'apps.my_warehouse.apps.MyWarehouseConfig',
     'apps.logos.apps.LogosConfig',
+    'apps.clients_outside_of_illinois.apps.ClientsOutsideOfIllinoisConfig',
 ]
 
 INSTALLED_APPS = [
