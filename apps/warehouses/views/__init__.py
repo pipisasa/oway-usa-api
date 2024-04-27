@@ -2,6 +2,7 @@ from .warehouse import (
     CreateWarehouseAPI,
     MyWarehouseListAPI,
     WarehouseListAPI,
+    UpdateWarehouseAPI,
 )
 from .status import (
     ListStatusAPI
