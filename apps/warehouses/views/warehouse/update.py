@@ -18,7 +18,7 @@ class UpdateWarehouseAPI(APIView):
     def put(self, request, pk, *args, **kwargs):
         warehouse_instance = get_object_or_404(Warehouse, pk=pk)
         data = request.data
-        serializer = self.serializer_class(warehouse_instance, data=data, partial=True)
+        serializer = self.serializer_class(warehouse_instance, data=data, partial=False)
 
         if serializer.is_valid():
             serializer.save()
@@ -35,3 +35,22 @@ class UpdateWarehouseAPI(APIView):
             return Response(status=status.HTTP_200_OK)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    def patch(self, request, pk, *args, **kwargs):
+        warehouse_instance = get_object_or_404(Warehouse, pk=pk)
+        data = request.data
+        serializer = self.serializer_class(warehouse_instance, data=data, partial=True)
+
+        if serializer.is_valid():
+            serializer.save()
+            user = User.objects.filter(unique_id=serializer.validated_data.get('unique_id_user', '')).first()
+            if user is not None:
+                data_status = Status.objects.get(id=data['status'])
+                if data_status.name == 'Доставлено':
+                    notification = Notifications(
+                        title='Товар Доставлен',
+                        description='Проверьте ваш склад'
+                    )
+                    notification.save()
+                    MailBox.objects.create(user=user, notification=notification)
+            return Response(status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
