@@ -6,6 +6,7 @@ urlpatterns = [
     path('create/', views.CreateWarehouseAPI.as_view(), name="create"),
     path('my/', views.MyWarehouseListAPI.as_view(), name="my"),
     path('list/', views.WarehouseListAPI.as_view(), name="list"),
+    path('update/<int:pk>/', views.UpdateWarehouseAPI.as_view(), name="update"),
     path('status/list/', views.ListStatusAPI.as_view(), name="status-list"),
     path('status-payment/list/', views.ListStatusPaymentAPI.as_view(), name="status-payment-list"),
 ]

@@ -1,3 +1,8 @@
 from django.contrib import admin
 
-# Register your models here.
+from apps.clients_outside_of_illinois.model import OutsideOfIllinois
+
+
+@admin.register(OutsideOfIllinois)
+class AdminUsers(admin.ModelAdmin):
+    list_display = ("id", "full_name", "phone_number", "status", "email", "telegram", "whatsapp")
