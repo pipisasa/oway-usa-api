@@ -7,7 +7,7 @@ class OutsideOfIllinois(models.Model):
     phone_number = models.CharField(max_length=255, null=False, blank=False)
     cargo_weight = models.IntegerField(null=False, blank=False)
     email = models.EmailField(null=False, blank=False)
-    telegram = models.CharField(max_length=255, null=False, blank=False)
-    whatsapp = models.CharField(max_length=255, null=False, blank=False)
+    telegram = models.CharField(max_length=255, null=True, blank=True)
+    whatsapp = models.CharField(max_length=255, null=True, blank=True)
 
     status = models.BooleanField(default=False)
