@@ -6,6 +6,7 @@ urlpatterns = [
     path('create/', views.CreateWarehouseAPI.as_view(), name="create"),
     path('my/', views.MyWarehouseListAPI.as_view(), name="my"),
     path('list/', views.WarehouseListAPI.as_view(), name="list"),
+    path('get/<str:track_number>/', views.WarehouseGetAPI.as_view(), name="get"),
     path('update/<int:pk>/', views.UpdateWarehouseAPI.as_view(), name="update"),
     path('delete/<int:id>/', views.DeleteWarehouseAPI.as_view(), name="update"),
     path('status/list/', views.ListStatusAPI.as_view(), name="status-list"),
