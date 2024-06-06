@@ -86,16 +86,17 @@ class ListAPIView(APIView, ABC):
             paginator = PageNumberPagination()
             results = self._get_result(paginator, queryset, request)
             return {
-                       'results': results,
-                       'total_pages': paginator.page.paginator.num_pages,
-                       'current_page': paginator.page.number,
-                   }, paginator
+                'results': results,
+                'total_pages': paginator.page.paginator.num_pages,
+                'current_page': paginator.page.number,
+                'count': queryset.count(),
+            }, paginator
 
         paginator = CursorPagination()
         return {
-                   'results': self._get_result(paginator, queryset, request),
-                   'next': paginator.get_next_link(),
-                   'previous': paginator.get_previous_link(),
-                   'count': queryset.count(),
-               }, paginator
+               'results': self._get_result(paginator, queryset, request),
+               'next': paginator.get_next_link(),
+               'previous': paginator.get_previous_link(),
+               'count': queryset.count(),
+           }, paginator
 

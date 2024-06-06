@@ -15,6 +15,16 @@ MY_APPS = [
     'apps.catalog_sites.apps.CatalogSitesConfig',
     'apps.products.apps.ProductsConfig',
     'apps.billing.apps.BillingConfig',
+    'apps.add_user_in_ap.apps.AddUserInApConfig',
+    'apps.purchase.apps.PurchaseConfig',
+    'apps.countries.apps.CountriesConfig',
+    'apps.warehouses.apps.WarehousesConfig',
+    'apps.statics.apps.StaticsConfig',
+    'apps.my_warehouse.apps.MyWarehouseConfig',
+    'apps.logos.apps.LogosConfig',
+    'apps.clients_outside_of_illinois.apps.ClientsOutsideOfIllinoisConfig',
+    'apps.cargos.apps.CargosConfig',
+    'apps.cities.apps.CitiesConfig',
 ]
 
 INSTALLED_APPS = [

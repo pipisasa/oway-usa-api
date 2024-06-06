@@ -4,8 +4,6 @@ from apps.categories.models import Category
 
 base_field = [
     'name',
-    'codename',
-    'icon'
 ]
 
 
@@ -17,6 +15,13 @@ class BaseCategorySerializer(serializers.ModelSerializer):
 
 
 class ListCategorySerializer(BaseCategorySerializer):
+
+    class Meta:
+        model = Category
+        fields = ["id"] + base_field
+
+
+class DetailCategorySerializer(BaseCategorySerializer):
 
     class Meta:
         model = Category
