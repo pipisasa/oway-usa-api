@@ -7,7 +7,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from apps.warehouses.models import Status, Warehouse
+from apps.warehouses.models import Status, WarehouseProduct
 from ..filter_helper import in_filters
 from apps.shared.views import FilterHelper
 

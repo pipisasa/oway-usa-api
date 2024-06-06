@@ -3,33 +3,22 @@ from datetime import datetime
 from django.db import models
 
 from apps.countries.models import Country
-from .status import Status
-from .status_payment import StatusPayment
+from apps.cities.models import City
 
 
 class Warehouse(models.Model):
     name = models.CharField(max_length=255)
     address = models.CharField(max_length=255)
+    city = models.ForeignKey(City, on_delete=models.SET_NULL, null=True)
     country = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True)
-    weight = models.FloatField(default=0)
-    track_number = models.CharField(max_length=50)
-    comments = models.TextField()
-    status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True)
-    status_payment = models.ForeignKey(StatusPayment, on_delete=models.SET_NULL, null=True)
-    price = models.FloatField(default=0)
-    unique_id_user = models.CharField(max_length=255)
-    image = models.ImageField(upload_to='warehouse/', null=True, blank=True)
-    url = models.URLField(blank=True, null=True)
-    articul = models.CharField(max_length=255, default="default", blank=False, null=False)
-    price = models.IntegerField(blank=True, null=True)
-
-    date_sent = models.CharField(max_length=50, null=True, blank=True)
-    date_arrived = models.CharField(max_length=50, null=True, blank=True)
-
-    is_parcels = models.BooleanField(default=False)
+    zip_code = models.CharField(max_length=50)
+    mail = models.EmailField()
+    phone_number = models.CharField(max_length=255)
 
     created_at = models.DateTimeField(default=datetime.now)
 
+    class Meta:
+        ordering = ('-id',)
+
     def __str__(self):
         return self.name
-
