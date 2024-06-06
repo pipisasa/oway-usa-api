@@ -4,7 +4,6 @@ from .warehouse import (
     WarehouseListAPI,
     UpdateWarehouseAPI,
     DeleteWarehouseAPI,
-    WarehouseGetAPI
 )
 from .status import (
     ListStatusAPI
@@ -13,5 +12,8 @@ from .status_payment import (
     ListStatusPaymentAPI
 )
 from .warehouse_product import (
-    CreateWarehouseProductAPI
+    CreateWarehouseProductAPI,
+    WarehouseProductListAPI,
+    DeleteWarehouseProductAPI,
+    WarehouseProductGetAPI
 )
