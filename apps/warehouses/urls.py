@@ -4,6 +4,7 @@ from apps.warehouses import views
 
 urlpatterns = [
     path('create/', views.CreateWarehouseAPI.as_view(), name="create"),
+    path('product/create/', views.CreateWarehouseProductAPI.as_view(), name="create-product"),
     path('my/', views.MyWarehouseListAPI.as_view(), name="my"),
     path('list/', views.WarehouseListAPI.as_view(), name="list"),
     path('get/<str:track_number>/', views.WarehouseGetAPI.as_view(), name="get"),

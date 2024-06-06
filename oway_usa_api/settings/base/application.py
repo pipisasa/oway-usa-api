@@ -24,6 +24,7 @@ MY_APPS = [
     'apps.logos.apps.LogosConfig',
     'apps.clients_outside_of_illinois.apps.ClientsOutsideOfIllinoisConfig',
     'apps.cargos.apps.CargosConfig',
+    'apps.cities.apps.CitiesConfig',
 ]
 
 INSTALLED_APPS = [

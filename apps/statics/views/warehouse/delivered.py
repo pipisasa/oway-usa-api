@@ -6,7 +6,7 @@ from rest_framework import status
 from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from apps.warehouses.models import Status, Warehouse
+from apps.warehouses.models import Status, WarehouseProduct
 from apps.shared.views.filter_helpers import FilterHelper
 from ..filter_helper import in_filters
 
@@ -30,7 +30,7 @@ class StaticsWarehouseDeliveredAPI(APIView, FilterHelper):
 
     def get_queryset_filter(self):
         delivered_status = Status.objects.get(name="Доставлено")
-        queryset = Warehouse.objects.filter(status=delivered_status)
+        queryset = WarehouseProduct.objects.filter(status=delivered_status)
         filtered_queryset = self._filter_queryset(self.request, queryset)
         return filtered_queryset
 

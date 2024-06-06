@@ -12,3 +12,6 @@ from .status import (
 from .status_payment import (
     ListStatusPaymentAPI
 )
+from .warehouse_product import (
+    CreateWarehouseProductAPI
+)

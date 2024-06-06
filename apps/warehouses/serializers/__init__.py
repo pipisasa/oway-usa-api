@@ -1,3 +1,4 @@
 from .warehouse_serializer import WarehouseCreateSerializer, WarehouseListSerializer
 from .status_serializer import StatusListSerializer, StatusDetailSerializer
 from .status_payment_serializer import StatusPaymentListSerializer, StatusPaymentDetailSerializer
+from .warehouse_product_serializer import WarehouseProductListSerializer, WarehouseProductCreateSerializer
