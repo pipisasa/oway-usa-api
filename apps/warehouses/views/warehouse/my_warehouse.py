@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
@@ -20,6 +21,12 @@ class MyWarehouseListAPI(ListAPIView):
     def get_queryset(self):
         return WarehouseProduct.objects.filter(unique_id_user=self.get_unique_id_user())
 
+    @swagger_auto_schema(
+        operation_summary="My Warehouse List",
+        responses={
+            200: WarehouseProductListSerializer(many=True)
+        }
+    )
     def get(self, request):
         queryset = self.get_queryset()
         base_response, _ = self.get_base_response(queryset, request)

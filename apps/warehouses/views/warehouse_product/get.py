@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
@@ -16,6 +17,12 @@ class WarehouseProductGetAPI(APIView):
     def get_warehouse(self, track_number):
         return WarehouseProduct.objects.filter(track_number=track_number).first()
 
+    @swagger_auto_schema(
+        operation_summary="Get Warehouse Product",
+        responses={
+            200: WarehouseProductListSerializer()
+        }
+    )
     def get(self, request, track_number):
         warehouse_product = self.get_warehouse(track_number=track_number)
 

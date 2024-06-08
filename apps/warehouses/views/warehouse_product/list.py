@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
@@ -30,6 +31,12 @@ class WarehouseProductListAPI(ListAPIView):
         queryset = queryset.filter(q_objects)
         return queryset
 
+    @swagger_auto_schema(
+        operation_summary="List Warehouse Product",
+        responses={
+            200: WarehouseProductListSerializer(many=True)
+        }
+    )
     def get(self, request):
         queryset = self.get_queryset()
         filtered_queryset = self._filter_queryset(request, queryset)
