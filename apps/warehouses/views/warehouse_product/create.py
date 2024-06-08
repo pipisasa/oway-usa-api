@@ -1,3 +1,4 @@
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status
 from rest_framework.permissions import AllowAny, IsAdminUser
 from rest_framework.response import Response
@@ -14,6 +15,16 @@ class CreateWarehouseProductAPI(APIView):
     permission_classes = [IsAdminUser]
     serializer_class = WarehouseProductCreateSerializer
 
+    @swagger_auto_schema(
+        operation_summary="Create Warehouse Product API",
+        request_body=WarehouseProductCreateSerializer,
+        responses={
+            201: "Successfully created",
+            400: "Bad Request",
+            401: "Unauthorized",
+            403: "Forbidden"
+        }
+    )
     def post(self, request, *args, **kwargs):
         data = request.data
         serializer = self.serializer_class(data=data)
