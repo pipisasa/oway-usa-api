@@ -4,7 +4,7 @@ from rest_framework.response import Response
 
 from apps.shared.views.list_view import ListAPIView
 from apps.warehouses.models import WarehouseProduct
-from apps.warehouses.serializers import WarehouseListSerializer
+from apps.warehouses.serializers import WarehouseProductListSerializer
 
 
 class MyWarehouseListAPI(ListAPIView):
@@ -15,7 +15,7 @@ class MyWarehouseListAPI(ListAPIView):
         return user_unique_id
 
     def get_serializer_class(self):
-        return WarehouseListSerializer
+        return WarehouseProductListSerializer
 
     def get_queryset(self):
         return WarehouseProduct.objects.filter(unique_id_user=self.get_unique_id_user())
