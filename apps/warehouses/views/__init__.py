@@ -15,5 +15,6 @@ from .warehouse_product import (
     CreateWarehouseProductAPI,
     WarehouseProductListAPI,
     DeleteWarehouseProductAPI,
-    WarehouseProductGetAPI
+    WarehouseProductGetAPI,
+    UpdateWarehouseProductAPI,
 )
