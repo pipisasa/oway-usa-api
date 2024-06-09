@@ -23,7 +23,7 @@ class WarehouseProduct(models.Model):
     status_payment = models.ForeignKey(StatusPayment, on_delete=models.SET_NULL, null=True)
     price = models.FloatField(default=0)
 
-    image = models.ImageField(upload_to='warehouse/', null=True, blank=True)
+    image = models.ImageField(upload_to='warehouse_product/', null=True, blank=True)
     url = models.URLField(blank=True, null=True)
     articul = models.CharField(max_length=255, blank=True, null=True)
 

@@ -8,3 +8,4 @@ from .forgot_password import (
     ForgotPasswordCompleteView,
     ForgotPasswordSendActivationCodeView
 )
+from .profile_detail import ProfileDetailAPI

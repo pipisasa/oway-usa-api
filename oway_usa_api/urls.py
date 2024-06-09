@@ -27,6 +27,7 @@ api_urls = [
     path("logos/", include("apps.logos.urls")),
     path("otside_of_illinois/", include("apps.clients_outside_of_illinois.urls")),
     path("cargos/", include("apps.cargos.urls")),
+    path("items/", include("apps.items.urls")),
 ]
 
 urlpatterns = [
