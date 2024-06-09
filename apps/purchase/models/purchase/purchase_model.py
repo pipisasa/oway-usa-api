@@ -22,3 +22,6 @@ class Purchase(models.Model):
     price = models.IntegerField(blank=True, null=True)
 
     created_at = models.DateTimeField(default=datetime.now)
+
+    class Meta:
+        ordering = ("-id",)
