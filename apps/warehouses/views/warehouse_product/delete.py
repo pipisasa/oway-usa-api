@@ -21,13 +21,20 @@ class DeleteWarehouseProductAPI(APIView):
             403: "Forbidden"
         }
     )
-    def delete(self, request, id, *args, **kwargs):
+    def put(self, request, *args, **kwargs):
+        ids = request.data.get("ids")
 
-        if id != 'all':
-            warehouse_product_instance = get_object_or_404(WarehouseProduct, pk=int(id))
+        if not ids:
+            return Response({"error": "No IDs provided"}, status=status.HTTP_400_BAD_REQUEST)
+
+        if ids != 'all':
+            ids = map(int, ids)
+            warehouse_product_instances = WarehouseProduct.objects.filter(pk__in=ids)
+            if not warehouse_product_instances.exists():
+                return Response({"error": "Objects not found"}, status=status.HTTP_404_NOT_FOUND)
         else:
-            warehouse_product_instance = WarehouseProduct.objects.all()
+            warehouse_product_instances = WarehouseProduct.objects.all()
 
-        warehouse_product_instance.delete()
+        warehouse_product_instances.delete()
 
         return Response(status=status.HTTP_204_NO_CONTENT)
