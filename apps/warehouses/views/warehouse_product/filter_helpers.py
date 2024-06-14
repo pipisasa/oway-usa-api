@@ -43,3 +43,8 @@ text_search_filters = [{
     'fields': ['comments'],
     'query_params_field': 'comments',
 }]
+
+range_filters = [
+    {'field': 'price', 'type': 'int'},
+    {'field': 'wage', 'type': 'int'}
+]

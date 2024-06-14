@@ -6,26 +6,41 @@ from rest_framework.views import APIView
 
 from apps.purchase import models
 from apps.purchase import serializers
+from apps.shared.views.list_view import ListAPIView
+
+from .filter_helpers import text_search_filters, simple_filters
 
 
-class PurchaseList(APIView):
+class PurchaseList(ListAPIView):
     permission_classes = [IsAdminUser]
 
+    def get_serializer_class(self):
+        return serializers.PurchaseListSerializer
+
+    def _filter_queryset(self, request, queryset):
+        query_params = request.query_params.copy()
+
+        q_objects = self.build_filters(
+            query_params=query_params,
+            simple_filters=simple_filters,
+            in_filters=[],
+            boolean_filters=[],
+            range_filters=[],
+            text_search_filters=text_search_filters,
+        )
+        queryset = queryset.filter(q_objects)
+        return queryset
+
+    def get_queryset(self):
+        return models.Purchase.objects.all()
+
     def get(self, request):
-        paginator = PageNumberPagination()
-        paginator.page_size = 5
+        queryset = self.get_queryset()
+        filtered_queryset = self._filter_queryset(request, queryset)
+        base_response, _ = self.get_base_response(filtered_queryset, request)
 
-        purchases = models.Purchase.objects.all()
-        result_page = paginator.paginate_queryset(purchases, request)
-        serializer = serializers.PurchaseListSerializer(result_page, many=True)
+        response_data = {
+            **base_response,
+        }
 
-        modified_data = []
-
-        for purchase in serializer.data:
-            modified_purchase = purchase.copy()
-            modified_purchase['is_paid'] = purchase['payment_confirmation'] is not None
-            modified_purchase['request_status'] = purchase['payment_confirmation'] is not None
-            modified_data.append(modified_purchase)
-
-        return paginator.get_paginated_response(modified_data)
-
+        return Response(response_data, status=status.HTTP_200_OK)

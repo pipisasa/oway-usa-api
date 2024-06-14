@@ -9,3 +9,4 @@ from .forgot_password import (
     ForgotPasswordSendActivationCodeView
 )
 from .profile_detail import ProfileDetailAPI
+from .delete import DeleteUserAPI
