@@ -6,7 +6,8 @@ from rest_framework.response import Response
 from apps.shared.views.list_view import ListAPIView
 from apps.warehouses.models import WarehouseProduct
 from apps.warehouses.serializers import WarehouseProductListSerializer
-from .filter_helpers import simple_filters, text_search_filters
+from .filter_helpers import simple_filters, text_search_filters, range_filters
+
 
 class WarehouseProductListAPI(ListAPIView):
     permission_classes = [IsAdminUser]
@@ -25,7 +26,7 @@ class WarehouseProductListAPI(ListAPIView):
             simple_filters=simple_filters,
             in_filters=[],
             boolean_filters=[],
-            range_filters=[],
+            range_filters=range_filters,
             text_search_filters=text_search_filters,
         )
         queryset = queryset.filter(q_objects)

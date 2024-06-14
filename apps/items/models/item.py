@@ -1,10 +1,10 @@
 from django.db import models
+from .category import Category
 
 
 class Item(models.Model):
     text = models.TextField()
-    category = models.CharField(max_length=255)
-    color = models.CharField(max_length=100)
+    item_category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True, null=True)
     publication_date = models.DateTimeField(auto_now_add=True)
     city = models.CharField(max_length=255)
 

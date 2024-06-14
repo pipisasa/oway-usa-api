@@ -13,7 +13,7 @@ class WarehouseProduct(models.Model):
     name = models.CharField(max_length=255)
     country_of_origin = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='origin_warehouseproducts')
     country_of_destination = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='destination_warehouseproducts')
-    weight = models.CharField(max_length=255, blank=True, null=True)
+    weight = models.IntegerField(null=True, blank=True)
     length = models.CharField(max_length=255, blank=True, null=True)
     width = models.CharField(max_length=255, blank=True, null=True)
     height = models.CharField(max_length=255, blank=True, null=True)
@@ -21,7 +21,7 @@ class WarehouseProduct(models.Model):
     comments = models.TextField()
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True)
     status_payment = models.ForeignKey(StatusPayment, on_delete=models.SET_NULL, null=True)
-    price = models.FloatField(default=0)
+    price = models.IntegerField(verbose_name="цена", null=True, blank=True)
 
     image = models.ImageField(upload_to='warehouse_product/', null=True, blank=True)
     url = models.URLField(blank=True, null=True)
