@@ -10,3 +10,4 @@ from .forgot_password import (
 )
 from .profile_detail import ProfileDetailAPI
 from .delete import DeleteUserAPI
+from .update import UpdateUserAPI
