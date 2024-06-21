@@ -4,6 +4,7 @@ from apps.warehouses import views
 
 urlpatterns = [
     path('create/', views.CreateWarehouseAPI.as_view(), name="create"),
+    path('get/<int:id>/', views.WarehouseGetAPI.as_view(), name="get"),
     path('product/create/', views.CreateWarehouseProductAPI.as_view(), name="create-product"),
     path('product/list/', views.WarehouseProductListAPI.as_view(), name="list-product"),
     path('product/delete/', views.DeleteWarehouseProductAPI.as_view(), name="delete-product"),

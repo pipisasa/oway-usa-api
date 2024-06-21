@@ -4,6 +4,7 @@ from .warehouse import (
     WarehouseListAPI,
     UpdateWarehouseAPI,
     DeleteWarehouseAPI,
+    WarehouseGetAPI
 )
 from .status import (
     ListStatusAPI
