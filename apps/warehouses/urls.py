@@ -13,6 +13,7 @@ urlpatterns = [
     path('list/', views.WarehouseListAPI.as_view(), name="list"),
     path('product/get/<str:track_number>/', views.WarehouseProductGetAPI.as_view(), name="get-product"),
     path('update/<int:pk>/', views.UpdateWarehouseAPI.as_view(), name="update"),
+    path('product/update/', views.UpdatesWarehouseProductAPI.as_view(), name="update"),
     path('delete/<int:id>/', views.DeleteWarehouseAPI.as_view(), name="update"),
     path('status/list/', views.ListStatusAPI.as_view(), name="status-list"),
     path('status-payment/list/', views.ListStatusPaymentAPI.as_view(), name="status-payment-list"),
