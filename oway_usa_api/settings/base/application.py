@@ -26,6 +26,7 @@ MY_APPS = [
     'apps.cargos.apps.CargosConfig',
     'apps.cities.apps.CitiesConfig',
     'apps.items.apps.ItemsConfig',
+    'apps.contacts.apps.ContactsConfig',
 ]
 
 INSTALLED_APPS = [

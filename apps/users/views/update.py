@@ -23,12 +23,12 @@ class UpdateUserAPI(APIView):
     )
     def put(self, request, *args, **kwargs):
         ids = request.data.get("ids")
-        query = request.query_params
+        data = request.data
 
         if not ids:
             return Response({"error": "No IDs provided"}, status=status.HTTP_400_BAD_REQUEST)
         users = User.objects.filter(pk__in=ids)
-        is_admin = query.get("is_admin")
+        is_admin = data.get("is_admin")
 
         if is_admin:
             users.update(is_admin=is_admin)
