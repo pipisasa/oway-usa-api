@@ -11,5 +11,5 @@ CORS_ALLOWED_ORIGINS = [
     "https://api-owayusa.com",
     "http://owayusa.net",
     "https://www.owayusa.net",
-    "https://master.d6e8810zgxrqu.amplifyapp.com/"
+    "https://master.d6e8810zgxrqu.amplifyapp.com"
 ]
