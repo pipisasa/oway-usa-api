@@ -14,7 +14,6 @@ class WarehouseCreateSerializer(serializers.ModelSerializer):
 
 
 class WarehouseListSerializer(serializers.ModelSerializer):
-    country = DetailCountrySerializer()
 
     class Meta:
         model = Warehouse
