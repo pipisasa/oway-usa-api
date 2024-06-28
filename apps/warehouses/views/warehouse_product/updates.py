@@ -23,7 +23,19 @@ class UpdatesWarehouseProductAPI(APIView):
     )
     def patch(self, request, *args, **kwargs):
         ids = request.data.get("ids", [])
-        WarehouseProduct.objects.filter(pk__in=ids).update(
-            status=request.data.get("status")
-        )
+        status_product = request.data.get("status", "")
+        date_sent = request.data.get("date_sent", "")
+        date_arrived = request.data.get("date_arrived", "")
+        if status_product:
+            WarehouseProduct.objects.filter(pk__in=ids).update(
+                status=status_product
+            )
+        if date_sent:
+            WarehouseProduct.objects.filter(pk__in=ids).update(
+                date_sent=date_sent
+            )
+        if date_arrived:
+            WarehouseProduct.objects.filter(pk__in=ids).update(
+                date_arrived=date_arrived
+            )
         return Response("ok", status=status.HTTP_400_BAD_REQUEST)

@@ -20,6 +20,7 @@ class WarehouseProduct(models.Model):
     track_number = models.CharField(max_length=50)
     comments = models.TextField()
     status = models.ForeignKey(Status, on_delete=models.SET_NULL, null=True)
+    status_many = models.BooleanField(default=False)
     status_payment = models.ForeignKey(StatusPayment, on_delete=models.SET_NULL, null=True)
     price = models.IntegerField(verbose_name="цена", null=True, blank=True)
 
