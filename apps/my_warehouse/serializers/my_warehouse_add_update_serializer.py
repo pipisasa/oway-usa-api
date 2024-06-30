@@ -7,4 +7,4 @@ class MyWarehouseCreateUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = MyWarehouse
-        fields = ["id", "warehouse", "tracking_number", "courier_service", "comments"]
+        fields = "__all__"
