@@ -29,6 +29,7 @@ api_urls = [
     path("cargos/", include("apps.cargos.urls")),
     path("items/", include("apps.items.urls")),
     path("contacts/", include("apps.contacts.urls")),
+    path("address/", include("apps.address.urls")),
 ]
 
 urlpatterns = [

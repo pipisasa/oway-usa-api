@@ -177,7 +177,7 @@ class ProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "unique_id", "first_name", "last_name", "email", "avatar", "phone_number", "front_image", "back_image", "address", "created_at")
+        fields = ("id", "unique_id", "first_name", "last_name", "email", "avatar", "phone_number", "front_image", "back_image", "created_at")
 
     def get_front_image(self, obj):
         try:
@@ -222,7 +222,7 @@ class ProfileUpdateSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ("id", "first_name", "last_name", "email", "avatar", "phone_number", "front_image", "back_image", "address")
+        fields = ("id", "first_name", "last_name", "email", "avatar", "phone_number", "front_image", "back_image")
 
     def get_front_image(self, obj):
         try:
