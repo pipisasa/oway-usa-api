@@ -24,8 +24,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     avatar = models.ImageField(upload_to='avatars/', null=True, blank=True)
     activation_code = models.CharField(max_length=20, blank=True)
 
-    address = models.CharField(max_length=255)
-
     is_active = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
     is_admin = models.BooleanField(default=False)
