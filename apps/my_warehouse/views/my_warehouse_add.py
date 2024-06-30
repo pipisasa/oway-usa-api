@@ -11,16 +11,10 @@ class MyWarehouseAddView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        data = request.data
+        data = request.data.copy()
+        user = request.user
+        data['user'] = user.id
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
-        user = request.user
-        my_warehouse = MyWarehouse.objects.create(
-            user=user,
-            warehouse=data['warehouse'],
-            tracking_number=data['tracking_number'],
-            courier_service=data['courier_service'],
-            comments=data['comments'],
-        )
-        my_warehouse.save()
+        serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)
