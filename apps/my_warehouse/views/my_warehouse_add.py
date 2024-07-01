@@ -13,7 +13,11 @@ class MyWarehouseAddView(APIView):
     def post(self, request):
         data = request.data.copy()
         user = request.user
-        data['user'] = user.id
+        if user.is_admin is False:
+            data['user'] = user.id
+        else:
+            if data.get('user', None) is None:
+                data['user'] = user.id
         serializer = self.serializer_class(data=data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
