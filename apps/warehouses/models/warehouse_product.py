@@ -6,9 +6,11 @@ from apps.countries.models import Country
 from .status import Status
 from .status_payment import StatusPayment
 from .warehouse import Warehouse
+from apps.address.models import Address
 
 
 class WarehouseProduct(models.Model):
+    address = models.ForeignKey(Address, on_delete=models.CASCADE, blank=True, null=True)
     warehouse = models.ForeignKey(Warehouse, on_delete=models.CASCADE, blank=True, null=True, related_name='products')
     name = models.CharField(max_length=255)
     country_of_origin = models.ForeignKey(Country, on_delete=models.SET_NULL, null=True, related_name='origin_warehouseproducts')
