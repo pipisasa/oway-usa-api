@@ -8,6 +8,8 @@ from apps.shared.views.list_view import ListAPIView
 from apps.address.models import Address
 from apps.address.serializers import AddressListSerializer
 
+from .filter_helpers import simple_filters
+
 
 class AddressListAPI(ListAPIView):
     permission_classes = [IsAuthenticated]
@@ -15,8 +17,22 @@ class AddressListAPI(ListAPIView):
     def get_serializer_class(self):
         return AddressListSerializer
 
+    def _filter_queryset(self, request, queryset):
+        query_params = request.query_params.copy()
+
+        q_objects = self.build_filters(
+            query_params=query_params,
+            simple_filters=simple_filters,
+            in_filters=[],
+            boolean_filters=[],
+            range_filters=[],
+            text_search_filters=[],
+        )
+        queryset = queryset.filter(q_objects)
+        return queryset
+
     def get_queryset(self):
-        return Address.objects.filter(user_id=self.user_id)
+        return Address.objects.all()
 
     @swagger_auto_schema(
         operation_summary="List Items",
@@ -25,9 +41,9 @@ class AddressListAPI(ListAPIView):
         }
     )
     def get(self, request):
-        self.user_id = request.user.id
         queryset = self.get_queryset()
-        base_response, _ = self.get_base_response(queryset, request)
+        filtered_queryset = self._filter_queryset(request, queryset)
+        base_response, _ = self.get_base_response(filtered_queryset, request)
 
         response_data = {
             **base_response,
