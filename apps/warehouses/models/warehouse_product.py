@@ -27,6 +27,7 @@ class WarehouseProduct(models.Model):
     price = models.IntegerField(verbose_name="цена", null=True, blank=True)
 
     image = models.ImageField(upload_to='warehouse_product/', null=True, blank=True)
+    image_check = models.ImageField(upload_to='image_check/', null=True, blank=True)
     url = models.URLField(blank=True, null=True)
     articul = models.CharField(max_length=255, blank=True, null=True)
 
