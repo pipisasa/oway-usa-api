@@ -27,16 +27,18 @@ class AddUserForAdminAPIView(APIView):
                 is_active=True
             )
             user.save()
-            front_image = PassportFront.objects.create(
-                user=user,
-                front_image=data.get('front_image')
-            )
-            front_image.save()
-            back_image = PassportBack.objects.create(
-                user=user,
-                back_image=data.get('back_image')
-            )
-            back_image.save()
+            if data.get('front_image', ''):
+                front_image = PassportFront.objects.create(
+                    user=user,
+                    front_image=data.get('front_image')
+                )
+                front_image.save()
+            if data.get('back_image', ''):
+                back_image = PassportBack.objects.create(
+                    user=user,
+                    back_image=data.get('back_image')
+                )
+                back_image.save()
             return Response(status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
