@@ -5,8 +5,8 @@ from apps.users.models import User
 
 
 class AddUserSerializer(serializers.ModelSerializer):
-    front_image = serializers.ImageField(required=True)
-    back_image = serializers.ImageField(required=True)
+    front_image = serializers.ImageField(required=False)
+    back_image = serializers.ImageField(required=False)
     password2 = serializers.CharField(
         write_only=True,
         required=True,
