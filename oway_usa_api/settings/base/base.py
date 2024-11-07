@@ -15,7 +15,13 @@ DEBUG = os.getenv("DEBUG")
 
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
-ALLOWED_HOSTS = ["localhost", "18.222.184.72", "127.0.0.1", "api-owayusa.com"]
+ALLOWED_HOSTS = [
+  "localhost",
+  "127.0.0.1",
+  "oway-usa-api-production.up.railway.app",
+  "owaycargo.com",
+  "api-owayusa.com"
+]
 
 ROOT_URLCONF = 'oway_usa_api.urls'
 
