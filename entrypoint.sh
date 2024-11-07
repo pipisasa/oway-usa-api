@@ -12,4 +12,6 @@ if [ "$DJANGO_SUPERUSER_EMAIL" ] && [ "$DJANGO_SUPERUSER_PHONE_NUMBER" ]; then
     echo "Superuser with email: $DJANGO_SUPERUSER_EMAIL and phone:$DJANGO_SUPERUSER_PHONE_NUMBER created"
 fi
 
+gunicorn oway_usa_api.wsgi
+
 exec "$@"
