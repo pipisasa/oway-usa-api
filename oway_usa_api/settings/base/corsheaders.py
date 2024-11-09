@@ -8,4 +8,5 @@ CORS_ALLOWED_ORIGINS = [
     "https://front-production-4425.up.railway.app",
     "https://oway-usa-api-production.up.railway.app",
     "https://owaycargo.com",
+    "https://api.owaycargo.com",
 ]

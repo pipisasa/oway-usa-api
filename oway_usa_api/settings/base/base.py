@@ -20,6 +20,7 @@ ALLOWED_HOSTS = [
   "127.0.0.1",
   "oway-usa-api-production.up.railway.app",
   "owaycargo.com",
+  "api.owaycargo.com",
 ]
 
 ROOT_URLCONF = 'oway_usa_api.urls'
