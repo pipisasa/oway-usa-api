@@ -31,7 +31,7 @@ class StaticsWarehousePaidAPI(APIView, FilterHelper):
 
     def get_queryset_filter(self):
         delivered_status = Status.objects.get(name="Доставлено")
-        queryset = Warehouse.objects.filter(status=delivered_status)
+        queryset = WarehouseProduct.objects.filter(status=delivered_status)
         filtered_queryset = self._filter_queryset(self.request, queryset)
         return filtered_queryset
 
